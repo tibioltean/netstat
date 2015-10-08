@@ -43,8 +43,8 @@ a:hover
                 <li><a href="<?php echo site_url('admin/imprimante')?>">Imprimante</a></li>
                 <li><a href="<?php echo site_url('admin/servere')?>">Servere</a></li>
                 <li><a href="<?php echo site_url('admin/echipamente')?>">Echipamente retea</a></li>
-                <li><a href="<?php echo site_url('admin/routere')?>">Routere Wifi</a></li>
-                <li><a href="<?php echo site_url('admin/service')?>">Service</a></li>
+                <li><a href="<?php echo site_url('admin/service')?>">Fisa Interventie/Service/Revizie</a></li>
+                <li><a href="<?php echo site_url('admin/backup')?>">Backup</a></li>
                 <li><a href="<?php echo site_url('admin/setari')?>">Setari</a></li>
                 <li class="pull-right"><a href="<?=site_url('dashboard/logout')?>">Logout</a></li>
              

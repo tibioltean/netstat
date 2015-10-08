@@ -68,7 +68,7 @@ class admin extends CI_Controller {
      
         $crud->set_theme('datatables');
         $crud->set_table('sisteme');
-        $crud->display_as('compartiment','Sectie/C.');
+        $crud->display_as('compartiment','Sectie/Compartiment');
         $crud->set_subject('Sistem');
         $crud->columns('grup','compartiment','etaj','ip','sistem_operare','procesor','memorie','hdd','office','anul_fabricatiei','status_sistem');
         
@@ -84,42 +84,14 @@ class admin extends CI_Controller {
         $crud->set_relation('tipul_sistemului','tip_sistem','tip_name');
         $crud->set_relation('status_sistem','status_sistem','status_name');
         $crud->set_relation('antivirus','antivirus','antivirus_name');
-        $crud->set_field_upload('imagine_sistem','assets/uploads/files');
+        $crud->set_field_upload('imagine','assets/uploads/files');
         //$crud->set_field_upload('imagine_monitor','assets/uploads/files');
      
         $output = $crud->render();   
         $this->_admin_output($output);
     }
 
-    function sisteme2()
-    {
-        $crud = new grocery_CRUD();
-     
-        $crud->set_theme('datatables');
-        $crud->set_table('sisteme');
-        $crud->display_as('compartiment','Comp');
-        $crud->set_subject('Sistem');
-        $crud->columns('grup','compartiment','etaj','ip','sistem_operare','procesor','memorie','hdd','office','anul_fabricatiei','status_sistem');
-        
-        // Realatii baza de date
-        $crud->set_relation('grup','grup','grup_name');
-        $crud->set_relation('compartiment','compartimente','compartiment_name');
-        $crud->set_relation('etaj','etaj','etaj');
-        $crud->set_relation('brand','brand','nume_brand');
-        $crud->set_relation('memorie','memorie','memorie');
-        $crud->set_relation('hdd','hdd','hdd');
-        $crud->set_relation('memorie','memorie','memorie');
-        $crud->set_relation('sistem_operare','sistem_operare','os');
-        $crud->set_relation('tipul_sistemului','tip_sistem','tip_name');
-        $crud->set_relation('status_sistem','status_sistem','status_name');
-        $crud->set_relation('antivirus','antivirus','antivirus_name');
-        $crud->set_field_upload('imagine_sistem','assets/uploads/files');
-       // $crud->set_field_upload('imagine_monitor','assets/uploads/files');
-     
-        $output = $crud->render();   
-        $this->_admin_output($output);
-    }
-
+  
 
     function imprimante()
     {
@@ -138,6 +110,8 @@ class admin extends CI_Controller {
         $crud->set_relation('brand','printer_brand','printer_name');
         $crud->set_relation('status_printer','status_sistem','status_name');
 
+        $crud->set_field_upload('imagine','assets/uploads/files');
+
         $output = $crud->render();   
         $this->_admin_output($output);
 
@@ -146,8 +120,7 @@ class admin extends CI_Controller {
      function servere()
     {
 
-        $crud = new grocery_CRUD();
-     
+        $crud = new grocery_CRUD();     
         $crud->set_theme('datatables');
         $crud->set_table('servere');
         //$crud->display_as('compartiment','Sectie/Compartiment');
@@ -160,13 +133,85 @@ class admin extends CI_Controller {
         //$crud->set_relation('brand','printer_brand','printer_name');
         //$crud->set_relation('status_printer','status_sistem','status_name');
         $crud->set_field_upload('file_config','assets/uploads/files');
+        $crud->set_field_upload('imagine','assets/uploads/files');
+
+        $output = $crud->render();   
+        $this->_admin_output($output);
+    }
+
+    function echipamente()
+    {
+        $crud = new grocery_CRUD();     
+        $crud->set_theme('datatables');
+        $crud->set_table('echipament_retea');
+        $crud->set_subject('Echipament');
+        $crud->columns('tip_echipament','ip','brand','nume_echipament','an_fabricatie','locatie','etaj');
+
+        $crud->set_relation('tip_echipament','tip_echipamente','nume_echipament');
+        $crud->set_relation('etaj','etaj','etaj');
+        $crud->set_field_upload('config_file','assets/uploads/files');
 
         $output = $crud->render();   
         $this->_admin_output($output);
 
     }
 
+    function service()
+    {
+        $crud = new grocery_CRUD();     
+        $crud->set_theme('datatables');
+        $crud->set_table('service');
+        $crud->set_subject('Fisa noua');
+        $crud->columns('tip_fisa','nr_inregistrare','prioritate','data_inregistrarii','subiect','status_fisa','nume_responsabil');
 
 
+        $crud->set_relation('prioritate','prioritate_service','prioritate');  
+        $crud->set_relation('nume_responsabil','user','nume');         
+        $crud->set_relation('tip_fisa','tip_fisa','tip_fisa');
+        $crud->set_relation('status_fisa','status_op','status_name');
+        //$crud->set_relation('status_fisa','status_op','status_name');
+
+        // $crud->field_type('status_fisa','dropdown',
+        //     array('1' => 'active', '2' => 'private','3' => 'spam' , '4' => 'deleted'));
+
+        $crud->set_field_upload('atasament','assets/uploads/files');
+
+
+        $output = $crud->render();   
+        $this->_admin_output($output);
+
+    }
+
+     function backup()
+    {
+        $crud = new grocery_CRUD();     
+        $crud->set_theme('datatables');
+        $crud->set_table('backup');
+        $crud->set_subject('Fisa Back-up');
+        $crud->columns('data','nr_fisa','subiect','responsabil');
+
+        $crud->set_relation('responsabil','user','nume'); 
+        $crud->unset_print();
+
+        $output = $crud->render();   
+        $this->_admin_output($output);
+    }
+
+    function setari()
+    {
+        $crud = new grocery_CRUD();     
+        $crud->set_theme('datatables');
+        $crud->set_table('compartimente');
+        $crud->set_subject('compartiment');
+        $crud->display_as('compartiment_name','Compartiment');
+
+        $crud->set_relation('grup','grup','grup_name');
+        $crud->set_relation('etaj','etaj','etaj');
+
+        $output = $crud->render();   
+        $this->_admin_output($output);
+
+
+    }
 
 }
