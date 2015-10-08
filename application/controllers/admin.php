@@ -143,6 +143,29 @@ class admin extends CI_Controller {
 
     }
 
+     function servere()
+    {
+
+        $crud = new grocery_CRUD();
+     
+        $crud->set_theme('datatables');
+        $crud->set_table('servere');
+        //$crud->display_as('compartiment','Sectie/Compartiment');
+        $crud->set_subject('Server');
+        $crud->columns('server','ip1','ip2','brand','sistem_operare','anul_fabricatiei','memorie','locatie');
+
+        //$crud->set_relation('grup','grup','grup_name');
+        //$crud->set_relation('compartiment','compartimente','compartiment_name');
+        //$crud->set_relation('etaj','etaj','etaj');
+        //$crud->set_relation('brand','printer_brand','printer_name');
+        //$crud->set_relation('status_printer','status_sistem','status_name');
+        $crud->set_field_upload('file_config','assets/uploads/files');
+
+        $output = $crud->render();   
+        $this->_admin_output($output);
+
+    }
+
 
 
 

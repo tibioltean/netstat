@@ -74,6 +74,28 @@ INSERT INTO `compartimente` (`compartiment_id`, `compartiment_name`, `grup`, `se
 /*!40000 ALTER TABLE `compartimente` ENABLE KEYS */;
 
 
+-- Dumping structure for table iubcvt_network.echipament_retea
+CREATE TABLE IF NOT EXISTS `echipament_retea` (
+  `echipament_id` int(10) NOT NULL AUTO_INCREMENT,
+  `tip_echipament` varchar(50) DEFAULT NULL,
+  `nume_echipament` varchar(50) DEFAULT NULL,
+  `brand` varchar(50) DEFAULT NULL,
+  `ip` varchar(50) DEFAULT NULL,
+  `user` varchar(100) DEFAULT NULL,
+  `password` varchar(100) DEFAULT NULL,
+  `an_fabricatie` varchar(50) DEFAULT NULL,
+  `observatii` text,
+  `locatie` varchar(50) DEFAULT NULL,
+  `etaj` varchar(50) DEFAULT NULL,
+  `config_file` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`echipament_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Dumping data for table iubcvt_network.echipament_retea: ~0 rows (approximately)
+/*!40000 ALTER TABLE `echipament_retea` DISABLE KEYS */;
+/*!40000 ALTER TABLE `echipament_retea` ENABLE KEYS */;
+
+
 -- Dumping structure for table iubcvt_network.etaj
 CREATE TABLE IF NOT EXISTS `etaj` (
   `etaj_id` int(10) NOT NULL AUTO_INCREMENT,
@@ -187,10 +209,15 @@ CREATE TABLE IF NOT EXISTS `note` (
   PRIMARY KEY (`note_id`),
   KEY `FK_note_user` (`user_id`),
   CONSTRAINT `FK_note_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
--- Dumping data for table iubcvt_network.note: ~0 rows (approximately)
+-- Dumping data for table iubcvt_network.note: ~2 rows (approximately)
 /*!40000 ALTER TABLE `note` DISABLE KEYS */;
+INSERT INTO `note` (`note_id`, `user_id`, `title`, `content`, `date_added`, `date_modified`) VALUES
+	(4, 17, '193.226.0.74 AppServer', 'SNM: 255.255.255.252\r\nGW:193.226.0.73\r\nDNS1: 217.73.170.7\r\nDNS2: 192.129.4.1, 8.8.8.8', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(5, 17, 'BitDefender Zone', 'user tibioltean pass KLM639air!@#\nhttps://cloud.gravityzone.bitdefender.com/', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(6, 17, 'Pentru statiile de lucru', '- parola BIOS: digital\r\n- parola administrator Windows: .Spit40.\r\n- clasa IP: 192.168.1. xxx (IP statice)\r\n- Subnet Mask: 255.255.0.0\r\n- Gateway: 192.168.1.9\r\n- DNS: 192.168.1.9\r\n- Alternate DNS: 217.73.170.7 si 192.129.4.1\r\n', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	(7, 17, 'Pentru Internet', '- ISP: RoEdu Net (Universitatea Petru Maior), persoana de contact Adi Popescu tel. 0265/215.843, mobil 0744/933.880\r\n- Alternate ISP (doar back-up, 512 kbps): RDS, IP: 86.120.46.38, SNM: 255.255.255.240, GW: 86.120.46.33, DNS: 213.154.124.1 si 193.231.252.1 (se pot incerca si 193.231.236.25 si 193.231.236.30), persoana de contact: Cosmin RDS tel. 0770/065747\r\n', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 /*!40000 ALTER TABLE `note` ENABLE KEYS */;
 
 
@@ -211,6 +238,42 @@ INSERT INTO `printer_brand` (`printer_brd_id`, `printer_name`) VALUES
 	(5, 'Samsung'),
 	(6, 'Oki');
 /*!40000 ALTER TABLE `printer_brand` ENABLE KEYS */;
+
+
+-- Dumping structure for table iubcvt_network.servere
+CREATE TABLE IF NOT EXISTS `servere` (
+  `server_id` int(10) NOT NULL AUTO_INCREMENT,
+  `server` varchar(100) NOT NULL,
+  `functionalitate` varchar(255) NOT NULL,
+  `brand` varchar(50) NOT NULL,
+  `ip1` varchar(50) NOT NULL,
+  `ip2` varchar(50) NOT NULL,
+  `ip3` varchar(50) NOT NULL,
+  `procesor` varchar(50) NOT NULL,
+  `memorie` varchar(50) NOT NULL,
+  `hdd` varchar(50) NOT NULL,
+  `sistem_operare` varchar(50) NOT NULL,
+  `anul_fabricatiei` varchar(50) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `locatie` varchar(50) NOT NULL,
+  `file_config` varchar(100) NOT NULL,
+  `observatii` text NOT NULL,
+  PRIMARY KEY (`server_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 COMMENT='Servere IuBCvT';
+
+-- Dumping data for table iubcvt_network.servere: ~3 rows (approximately)
+/*!40000 ALTER TABLE `servere` DISABLE KEYS */;
+INSERT INTO `servere` (`server_id`, `server`, `functionalitate`, `brand`, `ip1`, `ip2`, `ip3`, `procesor`, `memorie`, `hdd`, `sistem_operare`, `anul_fabricatiei`, `username`, `password`, `locatie`, `file_config`, `observatii`) VALUES
+	(1, 'PACS', '', 'DELL', '192.168.1.200', '192.168.169.210', '', 'Xeon', '8 Gb', '5TB', 'Win Server 2012', '2015', 'Administrator', 'KLMair', 'Etaj 1 Camera servere', '0', '0'),
+	(2, 'WebApp', '', 'IBM', '193.226.0.74', '192.168.1.100', '', 'x', '2 Gb', '2x 232 Gb', 'Linux CentOS', '2005', 'root', 'IUBCvT382!@#', 'Etaj 1 Camera Servere', '0', '<p>\r\n 0</p>\r\n'),
+	(3, 'Server SAN ', 'Server DiaSan + Indaco Lege 4', '', '192.168.1.2 ', '192.168.1.10', '', 'Intel pentium 4 -  3GHz', '2 Gb', '3 hdd total 200 Gb', 'Windows 2003 R2', '', 'Administrator', '.Spit40.', 'Etaj 1 Camera Servere', '', '<p>\r\n &nbsp; Server SAN</p>\r\n<p>\r\n - SO=Windows 2003 R2</p>\r\n<p>\r\n - Server DiaSan + Indaco Lege 4</p>\r\n<p>\r\n - Adresa IP: 192.168.1.2 , 192.168.1.10</p>\r\n<p>\r\n - User: Administrator, pass: .Spit40.</p>\r\n<p>\r\n - Cere parola la pornire, porneste automat dupa cadere de curent</p>\r\n'),
+	(4, 'pfSense Internet', 'Server Internet pentru IBCvT (clasa 1)', '', '192.168.1.9', '193.226.0.18', 'RDS IP', '', '', '', 'pfSense', '', '', '', 'Etaj 1 Camera Servere', '', '<p>\r\n Acces web user si parola</p>\r\n'),
+	(5, 'File Server IUBCvT', 'un fel de samba', 'HP Proliant', 'IP: 192.168.1.7', '', '', 'Interl Xeon 2.27 GHz', '4 Gb', '2 Hdd 1 TB', 'Windows Server 2003', '2010', 'Administrator', '.Spit40.', 'Etaj 1 Camera Servere', '', '<p>\r\n Cere parola la pornire, porneste automat dupa cadere de curent</p>\r\n<p>\r\n HP Proliant DL 180G6, 2 Hdd, 4 Gb RAM, sala servere IBCvT, &nbsp;- server File, IP: 192.168.1.7, Windows Server 2003 x 86, parola: .Spit40.</p>\r\n'),
+	(6, 'Server app RSC', 'server aplicatie RSC pt IBCvT', 'HP Proliant ', '', '', '', '', '24 Gb RAM', '6 Hdd', 'Windows Server 2008 R2 x 64', '2010', 'Administrator', 'Hipo_Mures_13', 'Etaj 2 sala servere ATI', '', '<p>\r\n HP Proliant DL 380G7, 6 Hdd, 24 Gb RAM, sala servere ATI &ndash; server aplicatie RSC pt IBCvT, IP:&nbsp;&nbsp; , Windows Server 2008 R2 x 64, parola: Hipo_Mures_13</p>\r\n'),
+	(7, 'Server Hospital Manager', 'server Hospital Manager virtualizat', 'HP Proliant DL 380G7', '192.168.71.66', '', '', '', '12 Gb ', '6 Hdd', 'Windows Server 2008 R2 x 64', '2010', 'Administrator', 'Hipo_Mures_13', 'Parter - sala servere SCJUM ', '', '<p>\r\n HP Proliant DL 380G7, 6 Hdd, 12 Gb RAM, sala servere SCJUM &ndash; server Hospital Manager virtualizat, IP: 192.168.71.66, Windows Server 2008 R2 x 64, parola: Hipo_Mures_13</p>\r\n'),
+	(8, 'Server Salarizare ', 'Server salarizare IBCvT + SCJUM', '2. HP Proliant DL 380G7', '192.168.71.80', '', '', '', '24 Gb RAM', '4 Hdd', 'Windows Server 2008 R2 x 64', '2010', 'Administrator', 'Hipo_Mures_13', 'Etaj 2 sala servere ATI ', '', '<p>\r\n HP Proliant DL 380G7, 4 Hdd, 24 Gb RAM, sala servere ATI &ndash; server salarizare IBCvT + SCJUM, IP: 192.168.71.80, Windows Server 2008 R2 x 64, parola: Hipo_Mures_13</p>\r\n');
+/*!40000 ALTER TABLE `servere` ENABLE KEYS */;
 
 
 -- Dumping structure for table iubcvt_network.sisteme
@@ -241,14 +304,14 @@ CREATE TABLE IF NOT EXISTS `sisteme` (
   `imprimanta` varchar(100) NOT NULL,
   `tipul_sistemului` varchar(50) NOT NULL,
   `status_sistem` varchar(50) NOT NULL,
-  `imagine_sistem` varchar(255) NOT NULL,
+  `observatii` varchar(255) NOT NULL,
   PRIMARY KEY (`sistem_id`),
   KEY `FK_sisteme_compartimente` (`compartiment`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COMMENT='Calculatoare din reteaua IUBCVT\r\ntipul_sistemului -laptop sau desktop';
 
--- Dumping data for table iubcvt_network.sisteme: ~1 rows (approximately)
+-- Dumping data for table iubcvt_network.sisteme: ~0 rows (approximately)
 /*!40000 ALTER TABLE `sisteme` DISABLE KEYS */;
-INSERT INTO `sisteme` (`sistem_id`, `grup`, `compartiment`, `locatie`, `locatie_info`, `etaj`, `brand`, `ip`, `network_info`, `mac`, `domeniu`, `procesor`, `memorie`, `hdd`, `placa_de_baza`, `sistem_operare`, `office`, `anul_fabricatiei`, `nume_utilizator`, `password`, `teamviewer_id`, `contact`, `antivirus`, `imprimanta`, `tipul_sistemului`, `status_sistem`, `imagine_sistem`) VALUES
+INSERT INTO `sisteme` (`sistem_id`, `grup`, `compartiment`, `locatie`, `locatie_info`, `etaj`, `brand`, `ip`, `network_info`, `mac`, `domeniu`, `procesor`, `memorie`, `hdd`, `placa_de_baza`, `sistem_operare`, `office`, `anul_fabricatiei`, `nume_utilizator`, `password`, `teamviewer_id`, `contact`, `antivirus`, `imprimanta`, `tipul_sistemului`, `status_sistem`, `observatii`) VALUES
 	(1, 1, '1', '', '', '2', '2', '192.168.1.202', '', '34-64-A9-21-CD-5B', 'nu', 'i5  3 GHz', '6', '5', '', '5', '2013 ', 2015, 'Tibi', '', '590 184 980', '', '2', 'Xerox Runos', '1', '1', '');
 /*!40000 ALTER TABLE `sisteme` ENABLE KEYS */;
 
@@ -290,6 +353,22 @@ INSERT INTO `status_sistem` (`status_sis_id`, `status_name`, `informatii`) VALUE
 /*!40000 ALTER TABLE `status_sistem` ENABLE KEYS */;
 
 
+-- Dumping structure for table iubcvt_network.tip_echipamente
+CREATE TABLE IF NOT EXISTS `tip_echipamente` (
+  `tip_id` int(11) NOT NULL AUTO_INCREMENT,
+  `nume_echipament` varchar(50) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`tip_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+-- Dumping data for table iubcvt_network.tip_echipamente: ~3 rows (approximately)
+/*!40000 ALTER TABLE `tip_echipamente` DISABLE KEYS */;
+INSERT INTO `tip_echipamente` (`tip_id`, `nume_echipament`) VALUES
+	(1, 'Router'),
+	(2, 'Switch'),
+	(3, 'Router Wifi');
+/*!40000 ALTER TABLE `tip_echipamente` ENABLE KEYS */;
+
+
 -- Dumping structure for table iubcvt_network.tip_sistem
 CREATE TABLE IF NOT EXISTS `tip_sistem` (
   `tip_sis_id` int(10) NOT NULL AUTO_INCREMENT,
@@ -316,7 +395,7 @@ CREATE TABLE IF NOT EXISTS `todo` (
   PRIMARY KEY (`todo_id`),
   KEY `FK_todo_user` (`user_id`),
   CONSTRAINT `FK_todo_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table iubcvt_network.todo: ~0 rows (approximately)
 /*!40000 ALTER TABLE `todo` DISABLE KEYS */;
